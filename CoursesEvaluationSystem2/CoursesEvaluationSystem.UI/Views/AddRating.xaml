@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="CoursesEvaluationSystem.UI.Views.AddRating"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:CoursesEvaluationSystem.UI.ViewModels"
+        mc:Ignorable="d"
+        DataContext="{Binding AddRatingViewModel, Source={StaticResource ViewModelLocator}}"
+        d:DesignWidth="400"
+        d:DesignHeight="200"
+        x:Name="Root">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.ColumnSpan="2">
+            <MenuItem Header="Save" Padding="3" Margin="2" FontSize="14"  Command="{Binding SaveCommand}" CommandParameter="{Binding Assessment}"/>
+            <MenuItem Header="New Assessment" Padding="3" Margin="2" FontSize="14"  Command="{Binding NewAssessmentCommand}" CommandParameter="{Binding Assessment}"/>
+            <MenuItem Header="Delete" Padding="3" Margin="2" FontSize="14"  Command="{Binding DeleteCommand}" CommandParameter="{Binding Assessment}"/>
+        </Menu>
+
+        <Grid Grid.Row="1" DataContext="{Binding Assessment}">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"  FontSize="14" Text="Type" HorizontalAlignment="Right" Margin="3"/>
+        <ComboBox Grid.Column="1" Grid.Row="0"  FontSize="14"
+                  ItemsSource="{Binding ElementName=Root, Path=DataContext.AssessmentTypes}" 
+                  SelectedItem="{Binding Type, Mode=TwoWay}"/>
+        <TextBlock Text="Points"  FontSize="14" Grid.Row="1" HorizontalAlignment="Right" Margin="3"/>
+        <TextBox Grid.Row="1" Grid.Column="1"  FontSize="14" Text="{Binding Points, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Note"  FontSize="14" Grid.Row="2" HorizontalAlignment="Right" Margin="3"/>
+            <TextBox Grid.Row="2" Grid.Column="1"  FontSize="14" Text="{Binding Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+    </Grid>
+</UserControl>
